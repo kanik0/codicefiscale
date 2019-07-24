@@ -10,15 +10,15 @@ def get_city(codice):
             if(row[0] == codice):
                 found = True
                 return {"Comune":row[1], "Provincia":row[2]}
-        if(found == False):
+        if(not found):
             return {"Comune":"ERR", "Provincia":"ERR"}
 
 
-def get_stuff(codicefiscale):
+def get_info(codicefiscale):
     cognome = codicefiscale[0:3]
     nome = codicefiscale[3:6]
     anno = codicefiscale[6:8]
-    mese = codicefiscale[8]
+    mese = dict_mesi[codicefiscale[8]]
     giorno = int(codicefiscale[9:11])
     comune = get_city(codicefiscale[11:15])
 
@@ -28,9 +28,6 @@ def get_stuff(codicefiscale):
     else:
         sesso = 'M'
     
-    mese = dict_mesi[mese]
-
-
     return {"Nome":nome, "Cognome":cognome, "Giorno":giorno, "Mese":mese, "Anno":anno, "Sesso":sesso, "Comune":comune['Comune'], "Provincia":comune['Provincia']}
 
 
